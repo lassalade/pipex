@@ -6,7 +6,7 @@
 /*   By: eelissal <eelissal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 15:20:09 by eelissal          #+#    #+#             */
-/*   Updated: 2025/03/07 13:31:30 by eelissal         ###   ########lyon.fr   */
+/*   Updated: 2025/03/23 22:44:12 by eelissal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@
 # include <signal.h>    // waitpid status
 # include <errno.h>
 
-char	*ft_strcdup(const char *s, char n);
 void	free_args(char **args);
 int		count_len(char *cmd, char *end);
 void	waitpid_status(int id1, int id2);
 char	**fill_args(char *cmd, char **args);
+void	failed_child_process(int fd[2], int id);
 
 char	*get_cmd_name(char *cmd, char *cmd_name);
-char	**get_path(char **envp);
+char	**get_path(char **envp, char *cmd_name);
 char	*get_full_path(char *dir, char *cmd_name);
 char	*find_cmd_path(char *cmd_name, char **paths);
 char	*get_cmd_path(char *cmd, char **envp);

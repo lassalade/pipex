@@ -6,7 +6,7 @@
 /*   By: eelissal <eelissal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 15:03:47 by eelissal          #+#    #+#             */
-/*   Updated: 2025/03/07 15:05:41 by eelissal         ###   ########lyon.fr   */
+/*   Updated: 2025/03/23 20:23:05 by eelissal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*get_cmd_name(char *cmd, char *cmd_name)
 	return (cmd_name);
 }
 
-char	**get_path(char **envp)
+char	**get_path(char **envp, char *cmd_name)
 {
 	int		i;
 	char	*path;
@@ -59,7 +59,10 @@ char	**get_path(char **envp)
 		i++;
 	}
 	if (!path)
+	{
+		free(cmd_name);
 		return (NULL);
+	}
 	paths = ft_split(path, ':');
 	return (paths);
 }
@@ -96,13 +99,12 @@ char	*find_cmd_path(char *cmd_name, char **paths)
 		cmd_path = get_full_path(paths[i], cmd_name);
 		if (!cmd_path)
 		{
-			free_args(paths);
+			free(cmd_name);
 			return (NULL);
 		}
 		if (cmd_path && access(cmd_path, X_OK) == 0)
 		{
 			free(cmd_name);
-			free_args(paths);
 			return (cmd_path);
 		}
 		free(cmd_path);
@@ -126,13 +128,13 @@ char	*get_cmd_path(char *cmd, char **envp)
 		cmd_name = get_cmd_name(cmd, cmd_name);
 		if (!cmd_name)
 			return (NULL);
-		paths = get_path(envp);
+		paths = get_path(envp, cmd_name);
 		if (!paths)
-		{
-			free(cmd_name);
 			return (NULL);
-		}
 		cmd_path = find_cmd_path(cmd_name, paths);
+		free_args(paths);
+		if (!cmd_path)
+			return (NULL);
 	}
 	if (cmd_path)
 		return (cmd_path);

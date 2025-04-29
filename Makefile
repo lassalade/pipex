@@ -6,7 +6,7 @@
 #    By: eelissal <eelissal@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/24 14:50:34 by eelissal          #+#    #+#              #
-#    Updated: 2025/03/06 15:18:56 by eelissal         ###   ########lyon.fr    #
+#    Updated: 2025/03/24 23:32:16 by eelissal         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,7 @@ $(BIN)/%.o: $(SRC)/%.c $(HEADERS)
 			@mkdir -p $(dir $@)
 			$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
-$(NAME): $(OBJS) $(LIBFT)
+$(NAME): $(OBJS) $(LIBFT) Makefile
 			$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -L$(LIBFT_DIR) -lft
 
 clean:

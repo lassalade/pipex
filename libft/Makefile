@@ -6,7 +6,7 @@
 #    By: eelissal <eelissal@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 13:53:26 by eelissal          #+#    #+#              #
-#    Updated: 2025/03/07 15:07:35 by eelissal         ###   ########lyon.fr    #
+#    Updated: 2025/03/23 22:38:01 by eelissal         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,6 +74,7 @@ SRCS := ft_atoi.c \
 		ft_split.c \
 		ft_strchr.c \
 		ft_strdup.c \
+		ft_strcdup.c \
 		ft_striteri.c \
 		ft_strjoin.c \
 		ft_strlcat.c \

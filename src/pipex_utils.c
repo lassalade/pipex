@@ -6,31 +6,11 @@
 /*   By: eelissal <eelissal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 16:00:42 by eelissal          #+#    #+#             */
-/*   Updated: 2025/03/06 15:05:49 by eelissal         ###   ########lyon.fr   */
+/*   Updated: 2025/03/23 22:44:27 by eelissal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-char	*ft_strcdup(const char *s, char n)
-{
-	int		i;
-	char	*dest;
-
-	if (!s)
-		return (NULL);
-	i = 0;
-	dest = malloc(sizeof(char) * ft_strlen(s) + 1);
-	if (!dest)
-		return (0);
-	while (s[i] && s[i] != n)
-	{
-		dest[i] = s[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
-}
 
 void	free_args(char **args)
 {
@@ -107,4 +87,14 @@ char	**fill_args(char *cmd, char **args)
 	}
 	args[i] = NULL;
 	return (args);
+}
+
+void	failed_child_process(int fd[2], int id)
+{
+	if (id == -1)
+	{
+		close(fd[0]);
+		close(fd[1]);
+		exit(1);
+	}
 }

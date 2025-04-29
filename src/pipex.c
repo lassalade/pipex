@@ -6,7 +6,7 @@
 /*   By: eelissal <eelissal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 16:00:39 by eelissal          #+#    #+#             */
-/*   Updated: 2025/03/07 13:21:00 by eelissal         ###   ########lyon.fr   */
+/*   Updated: 2025/03/23 22:44:01 by eelissal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	execute_cmd(char *cmd, char **envp)
 	if (!cmd_path)
 	{
 		free_args(args);
+		errno = ENOENT;
 		perror("Command not found");
 		exit(127);
 	}
@@ -53,7 +54,7 @@ void	execute_cmd(char *cmd, char **envp)
 	perror("execve failed");
 	free(cmd_path);
 	free_args(args);
-	exit(127);
+	exit(126);
 }
 
 void	first_process(int fd[2], char **argv, char **envp)
@@ -114,12 +115,12 @@ int	main(int argc, char **argv, char **envp)
 		exit(1);
 	id1 = fork();
 	if (id1 == -1)
-		exit(1);
+		failed_child_process(fd, id1);
 	if (id1 == 0)
 		first_process(fd, argv, envp);
 	id2 = fork();
 	if (id2 == -1)
-		exit(1);
+		failed_child_process(fd, id2);
 	if (id2 == 0)
 		second_process(fd, argv, envp);
 	close(fd[0]);
